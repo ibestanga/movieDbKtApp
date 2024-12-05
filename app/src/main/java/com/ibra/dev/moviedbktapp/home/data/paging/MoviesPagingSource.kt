@@ -5,15 +5,16 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ibra.dev.moviedbktapp.commons.utils.extFunc.orAlternative
 import com.ibra.dev.moviedbktapp.home.data.api.HomeApi
-import com.ibra.dev.moviedbktapp.home.data.database.dao.HomeDao
 import com.ibra.dev.moviedbktapp.home.data.entities.MovieEntity
 import retrofit2.HttpException
 import java.io.IOException
+import kotlin.properties.Delegates
 
 class MoviesPagingSource(
     private val remoteLocalDataSource: HomeApi,
-    private val localDataSource: HomeDao,
 ) : PagingSource<Int, MovieEntity>() {
+    private var page by Delegates.notNull<Int>()
+
     override fun getRefreshKey(state: PagingState<Int, MovieEntity>): Int? {
         return state.anchorPosition?.let { position ->
             val closestPage = state.closestPageToPosition(position)
@@ -23,7 +24,8 @@ class MoviesPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieEntity> {
         return try {
-            val page = params.key.orAlternative(1)
+            page = params.key.orAlternative(1)
+
             val movies = fetchRemote(page)
 
             LoadResult.Page(
@@ -42,7 +44,6 @@ class MoviesPagingSource(
             )
             LoadResult.Error(e)
         } catch (e: IOException) {
-            // TODO : Add backoff logic when internet connection misses
             Log.e(MoviesPagingSource::class.java.simpleName, "load: ", e)
             LoadResult.Error(e)
         } catch (e: Exception) {

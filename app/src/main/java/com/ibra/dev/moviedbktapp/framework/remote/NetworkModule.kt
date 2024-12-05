@@ -5,11 +5,13 @@ import android.content.Context
 import com.ibra.dev.moviedbktapp.R
 import com.ibra.dev.moviedbktapp.BuildConfig
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 private const val TIME_OUT = 15L
@@ -21,7 +23,7 @@ val networkModule = module {
         providerInterceptor()
     }
     single {
-        providerOkHttpClient(get())
+        providerOkHttpClient(get(),get())
     }
     single {
         provideRetrofit(get(), get())
@@ -45,14 +47,21 @@ fun providerInterceptor(): HttpLoggingInterceptor {
 
 fun providerOkHttpClient(
     httpLoggingInterceptor: HttpLoggingInterceptor,
-): OkHttpClient = OkHttpClient.Builder()
-    .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-    .readTimeout(TIME_OUT, TimeUnit.SECONDS)
-    .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
-    .addInterceptor { chain ->
-        val request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer $apiKey")
-            .build()
-        chain.proceed(request)
-    }
-    .addInterceptor(httpLoggingInterceptor).build()
+    context: Context
+): OkHttpClient {
+    val cacheSize = 10 * 1024 * 1024L // 10 MB
+    val cacheDirectory = File(context.cacheDir, "http_cache")
+
+    return OkHttpClient.Builder()
+        .cache(Cache(cacheDirectory, cacheSize))
+        .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+        .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+        .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
+        .addInterceptor { chain ->
+            val request = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer $apiKey")
+                .build()
+            chain.proceed(request)
+        }
+        .addInterceptor(httpLoggingInterceptor).build()
+}
