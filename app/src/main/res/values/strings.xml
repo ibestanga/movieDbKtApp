@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">movieDbKtApp</string>
+    <string name="app_name">ibra movieDb</string>
+    <string name="base_url">\nhttps://api.themoviedb.org/</string>
 </resources>
