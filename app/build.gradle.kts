@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.compose.maps)
     implementation(libs.play.services.maps)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.coil.compose)
 
     //Koin
     implementation(libs.koin.android)

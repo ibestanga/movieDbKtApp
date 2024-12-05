@@ -13,5 +13,6 @@ class MapMovieEntityToDomainModelImpl : MapMovieEntityToDomainModel {
         poster = movieEntity.posterPath.orEmpty(),
         overview = movieEntity.overview.orEmpty(),
         releaseDate = movieEntity.releaseDate.orEmpty(),
+        voteAverage = movieEntity.voteAverage ?: 0.0
     )
 }
