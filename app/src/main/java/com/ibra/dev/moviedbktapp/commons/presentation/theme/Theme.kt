@@ -1,4 +1,4 @@
-package com.ibra.dev.moviedbktapp.ui.theme
+package com.ibra.dev.moviedbktapp.commons.presentation.theme
 
 import android.app.Activity
 import android.os.Build

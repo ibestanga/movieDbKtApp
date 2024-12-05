@@ -8,6 +8,7 @@ import com.ibra.dev.moviedbktapp.home.domain.usecase.GetPopularMoviesImpl
 import com.ibra.dev.moviedbktapp.home.domain.usecase.MapMovieEntityToDomainModelImpl
 import com.ibra.dev.moviedbktapp.home.presentation.usecases.GetPopularMovies
 import com.ibra.dev.moviedbktapp.home.presentation.usecases.MapMovieEntityToDomainModel
+import com.ibra.dev.moviedbktapp.home.presentation.viewmodels.HomeViewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
@@ -32,8 +33,14 @@ private val domainModule = module {
     }
 }
 
+private val presentationModule = module {
+    single {
+        HomeViewModel(get())
+    }
+}
+
 val homeModule = module {
-    includes(dataModule, domainModule)
+    includes(dataModule, domainModule, presentationModule)
 }
 
 private fun providerHomeApi(retrofit: Retrofit) = retrofit.create(HomeApi::class.java)

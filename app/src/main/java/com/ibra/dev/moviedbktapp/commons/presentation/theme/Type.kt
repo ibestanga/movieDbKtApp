@@ -1,4 +1,4 @@
-package com.ibra.dev.moviedbktapp.ui.theme
+package com.ibra.dev.moviedbktapp.commons.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

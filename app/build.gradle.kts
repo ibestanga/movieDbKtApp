@@ -66,11 +66,12 @@ dependencies {
     //local database
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.paging.compose.android)
-    implementation(libs.play.services.maps)
     implementation(libs.androidx.room.paging)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.play.services.maps)
 
     // ui
+    implementation(libs.androidx.paging.compose.android)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.navigation.compose)

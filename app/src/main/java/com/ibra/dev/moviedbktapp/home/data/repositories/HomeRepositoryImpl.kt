@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.ibra.dev.moviedbktapp.home.data.api.HomeApi
-import com.ibra.dev.moviedbktapp.home.data.dao.HomeDao
+import com.ibra.dev.moviedbktapp.home.data.database.dao.HomeDao
 import com.ibra.dev.moviedbktapp.home.data.entities.MovieEntity
 import com.ibra.dev.moviedbktapp.home.data.paging.MoviesPagingSource
 import com.ibra.dev.moviedbktapp.home.domain.repositories.HomeRepository

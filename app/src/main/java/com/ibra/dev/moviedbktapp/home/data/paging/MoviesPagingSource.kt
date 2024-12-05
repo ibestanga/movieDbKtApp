@@ -5,7 +5,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ibra.dev.moviedbktapp.commons.utils.extFunc.orAlternative
 import com.ibra.dev.moviedbktapp.home.data.api.HomeApi
-import com.ibra.dev.moviedbktapp.home.data.dao.HomeDao
+import com.ibra.dev.moviedbktapp.home.data.database.dao.HomeDao
 import com.ibra.dev.moviedbktapp.home.data.entities.MovieEntity
 import retrofit2.HttpException
 import java.io.IOException
@@ -54,9 +54,7 @@ class MoviesPagingSource(
     private suspend fun fetchRemote(page: Int): List<MovieEntity> =
         remoteLocalDataSource.getPopularMovie(page = page).let { response ->
             if (response.isSuccessful) {
-                response.body()?.data?.also { data ->
-                    localDataSource.insertMovies(data)
-                } ?: throw IllegalArgumentException("Movies Data not Available")
+                response.body()?.data ?: throw IllegalArgumentException("Movies Data not Available")
             } else {
                 throw HttpException(response)
             }

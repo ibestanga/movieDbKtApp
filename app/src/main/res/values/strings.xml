@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">ibra movieDb</string>
-    <string name="base_url">https://api.themoviedb.org/3</string>
+    <string name="base_url">https://api.themoviedb.org/3/</string>
 </resources>
