@@ -4,10 +4,14 @@ import com.ibra.dev.moviedbktapp.framework.database.AppDatabase
 import com.ibra.dev.moviedbktapp.home.data.api.HomeApi
 import com.ibra.dev.moviedbktapp.home.data.repositories.HomeRepositoryImpl
 import com.ibra.dev.moviedbktapp.home.domain.repositories.HomeRepository
+import com.ibra.dev.moviedbktapp.home.domain.usecase.GetPopularMoviesImpl
+import com.ibra.dev.moviedbktapp.home.domain.usecase.MapMovieEntityToDomainModelImpl
+import com.ibra.dev.moviedbktapp.home.presentation.usecases.GetPopularMovies
+import com.ibra.dev.moviedbktapp.home.presentation.usecases.MapMovieEntityToDomainModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
-val dataModule = module {
+private val dataModule = module {
     single {
         providerHomeApi(get())
     }
@@ -17,6 +21,19 @@ val dataModule = module {
     single<HomeRepository> {
         HomeRepositoryImpl(get(), get())
     }
+}
+
+private val domainModule = module {
+    single<MapMovieEntityToDomainModel> {
+        MapMovieEntityToDomainModelImpl()
+    }
+    single<GetPopularMovies> {
+        GetPopularMoviesImpl(get(), get())
+    }
+}
+
+val homeModule = module {
+    includes(dataModule, domainModule)
 }
 
 private fun providerHomeApi(retrofit: Retrofit) = retrofit.create(HomeApi::class.java)
