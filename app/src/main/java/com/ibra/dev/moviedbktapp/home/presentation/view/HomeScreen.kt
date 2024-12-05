@@ -19,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -32,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.ibra.dev.moviedbktapp.R
+import com.ibra.dev.moviedbktapp.commons.presentation.component.MyTopBar
 import com.ibra.dev.moviedbktapp.home.domain.models.MovieDto
 import com.ibra.dev.moviedbktapp.home.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -46,7 +48,14 @@ fun HomeScreen() {
         viewModel.getPopularMovies()
     }
 
-    Scaffold { paddingValues ->
+    Scaffold(
+        topBar = {
+            MyTopBar(
+                title = "Popular Movie",
+                needBackNavigation = false,
+            )
+        }
+    ) { paddingValues ->
         LazyColumn(modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)) {

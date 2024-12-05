@@ -1,6 +1,6 @@
 package com.ibra.dev.moviedbktapp.home.domain.usecase
 
-import com.ibra.dev.moviedbktapp.commons.utils.extFunc.orAlternative
+import com.ibra.dev.moviedbktapp.commons.utils.orAlternative
 import com.ibra.dev.moviedbktapp.home.data.entities.MovieEntity
 import com.ibra.dev.moviedbktapp.home.domain.models.MovieDto
 import com.ibra.dev.moviedbktapp.home.presentation.usecases.MapMovieEntityToDomainModel

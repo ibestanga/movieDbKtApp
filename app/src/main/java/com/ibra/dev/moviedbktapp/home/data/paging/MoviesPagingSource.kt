@@ -3,7 +3,7 @@ package com.ibra.dev.moviedbktapp.home.data.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.ibra.dev.moviedbktapp.commons.utils.extFunc.orAlternative
+import com.ibra.dev.moviedbktapp.commons.utils.orAlternative
 import com.ibra.dev.moviedbktapp.home.data.api.HomeApi
 import com.ibra.dev.moviedbktapp.home.data.entities.MovieEntity
 import retrofit2.HttpException

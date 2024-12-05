@@ -1,4 +1,4 @@
-package com.ibra.dev.moviedbktapp.commons.utils.extFunc
+package com.ibra.dev.moviedbktapp.commons.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
