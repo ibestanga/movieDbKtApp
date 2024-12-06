@@ -8,11 +8,11 @@ import com.ibra.dev.moviedbktapp.home.presentation.usecases.MapMovieEntityToDoma
 class MapMovieEntityToDomainModelImpl : MapMovieEntityToDomainModel {
 
     override fun invoke(movieEntity: MovieEntity): MovieDto = MovieDto(
-        id = movieEntity.id.orAlternative(0),
+        id = movieEntity.id.orAlternative(),
         name = movieEntity.title.orEmpty(),
         poster = movieEntity.posterPath.orEmpty(),
         overview = movieEntity.overview.orEmpty(),
         releaseDate = movieEntity.releaseDate.orEmpty(),
-        voteAverage = movieEntity.voteAverage.orAlternative(0.0)
+        voteAverage = movieEntity.voteAverage.orAlternative()
     )
 }
