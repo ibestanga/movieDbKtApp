@@ -35,7 +35,7 @@ private val domainModule = module {
 }
 
 private val presentationModule = module {
-    single {
+    factory {
         DetailsViewModel(get())
     }
 }

@@ -1,5 +1,6 @@
 package com.ibra.dev.moviedbktapp.details.presentation.view
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -8,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -15,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
@@ -26,12 +30,22 @@ import com.ibra.dev.moviedbktapp.commons.presentation.theme.padding_8dp
 import com.ibra.dev.moviedbktapp.details.domain.models.DetailsMovieDto
 
 @Composable
-fun DetailsMovieView(movie: DetailsMovieDto) {
+fun DetailsMovieView(
+    movie: DetailsMovieDto,
+    onBackClick: () -> Unit,
+    onSaveFavoriteMovie: (DetailsMovieDto) -> Unit
+) {
     Scaffold(
         topBar = {
-            MyTopBar("Detalle", needBackNavigation = true) {
-
-            }
+            MyTopBar(
+                title = "Detalle",
+                needBackNavigation = true,
+                actionIcon = Icons.Filled.Favorite,
+                onBackPressClick = onBackClick,
+                actionClick = {
+                    onSaveFavoriteMovie(movie)
+                }
+            )
         }
     ) {
         Column(
@@ -94,5 +108,5 @@ private fun DetailsMovieScreenPreview() {
         backdropPoster = "https://image.tmdb.org/t/p/w800/4OgaftFNqtE1UvfDDb2Eov7A5Rz.jpg",
         poster = "https://image.tmdb.org/t/p/w500/4OgaftFNqtE1UvfDDb2Eov7A5Rz.jpg",
     )
-    DetailsMovieView(movie)
+    DetailsMovieView(movie = movie, onBackClick = {}, onSaveFavoriteMovie = {})
 }

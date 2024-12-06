@@ -1,11 +1,14 @@
 package com.ibra.dev.moviedbktapp.details.presentation.view
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavHostController
 import com.ibra.dev.moviedbktapp.commons.presentation.component.ShowLoading
 import com.ibra.dev.moviedbktapp.commons.presentation.component.ShowResultMessage
 import com.ibra.dev.moviedbktapp.details.domain.models.DetailsMovieDto
@@ -14,7 +17,8 @@ import com.ibra.dev.moviedbktapp.details.presentation.viewmodels.DetailsViewMode
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun DetailsMovieScreen(movieId: Int) {
+fun DetailsMovieScreen(navController: NavHostController, movieId: Int) {
+    val context = LocalContext.current
     val viewModel = koinViewModel<DetailsViewModel>()
     val states by viewModel.detailsMovieEvents.collectAsState()
     LaunchedEffect(movieId) {
@@ -24,7 +28,7 @@ fun DetailsMovieScreen(movieId: Int) {
     HandlerUiStates(
         states = states,
         showLoading = {
-         ShowLoading(Modifier.fillMaxSize())
+            ShowLoading(Modifier.fillMaxSize())
         },
         showErrorState = { msg ->
             ShowResultMessage(Modifier.fillMaxSize(), msg = msg) {
@@ -32,7 +36,19 @@ fun DetailsMovieScreen(movieId: Int) {
             }
         },
     ) { data ->
-        DetailsMovieView(data)
+        DetailsMovieView(
+            movie = data,
+            onBackClick = {
+                navController.popBackStack()
+            },
+            onSaveFavoriteMovie = {
+                Toast.makeText(
+                    context,
+                    "should save this movie like favorite",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        )
     }
 }
 

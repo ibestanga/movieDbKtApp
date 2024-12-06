@@ -29,16 +29,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.ibra.dev.moviedbktapp.R
 import com.ibra.dev.moviedbktapp.commons.presentation.component.MyTopBar
+import com.ibra.dev.moviedbktapp.commons.presentation.navigations.MovieDetailDestination
 import com.ibra.dev.moviedbktapp.home.domain.models.MovieDto
 import com.ibra.dev.moviedbktapp.home.presentation.viewmodels.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavHostController) {
     val viewModel = koinViewModel<HomeViewModel>()
 
     val movies = viewModel.pagingMoviesStateFlow.collectAsLazyPagingItems()
@@ -55,14 +57,18 @@ fun HomeScreen() {
             )
         }
     ) { paddingValues ->
-        LazyColumn(modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues)) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
             items(
                 count = movies.itemCount
             ) { index: Int ->
                 movies[index]?.let { item ->
-                    MovieItem(item) { }
+                    MovieItem(item) {
+                        navController.navigate(MovieDetailDestination(it.id))
+                    }
                 }
             }
         }
