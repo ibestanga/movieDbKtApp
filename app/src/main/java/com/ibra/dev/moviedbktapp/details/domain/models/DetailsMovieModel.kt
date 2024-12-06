@@ -1,6 +1,12 @@
 package com.ibra.dev.moviedbktapp.details.domain.models
 
-data class DetailsMovieDto(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "favorites_movies")
+data class DetailsMovieModel(
+    @PrimaryKey
+    val id: Int,
     val title: String,
     val releaseDate: String,
     val genres: List<String>,
@@ -10,5 +16,6 @@ data class DetailsMovieDto(
     val popularity: Double,
     val language: List<String>,
     val backdropPoster: String,
-    val poster: String
+    val poster: String,
+    val productionCompanyNames: List<String>
 )

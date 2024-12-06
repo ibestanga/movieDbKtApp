@@ -1,6 +1,6 @@
 package com.ibra.dev.moviedbktapp.details.domain.usecase
 
-import com.ibra.dev.moviedbktapp.details.domain.models.DetailsMovieDto
+import com.ibra.dev.moviedbktapp.details.domain.models.DetailsMovieModel
 import com.ibra.dev.moviedbktapp.details.domain.repositories.DetailsMovieRepository
 import com.ibra.dev.moviedbktapp.details.presentation.usecase.GetDetailsUseCase
 import com.ibra.dev.moviedbktapp.details.presentation.usecase.MapDetailsEntityToDto
@@ -12,7 +12,7 @@ class GetDetailsUseCaseImpl(
     private val mapDto: MapDetailsEntityToDto
 ): GetDetailsUseCase {
 
-    override suspend fun invoke(movieId: Int): Flow<DetailsMovieDto> {
+    override suspend fun invoke(movieId: Int): Flow<DetailsMovieModel> {
         return repository.getDetailMovie(movieId).map { response ->
             mapDto.invoke(response)
         }

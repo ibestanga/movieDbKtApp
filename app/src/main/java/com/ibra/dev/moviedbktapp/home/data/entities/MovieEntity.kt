@@ -1,11 +1,9 @@
 package com.ibra.dev.moviedbktapp.home.data.entities
 
 
-import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "movies")
 data class MovieEntity(
     @SerializedName("adult")
     val adult: Boolean? = null,

@@ -1,6 +1,5 @@
 package com.ibra.dev.moviedbktapp.details.presentation.view
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -11,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
@@ -27,20 +26,21 @@ import com.ibra.dev.moviedbktapp.commons.presentation.component.MyTopBar
 import com.ibra.dev.moviedbktapp.commons.presentation.theme.padding_12dp
 import com.ibra.dev.moviedbktapp.commons.presentation.theme.padding_4dp
 import com.ibra.dev.moviedbktapp.commons.presentation.theme.padding_8dp
-import com.ibra.dev.moviedbktapp.details.domain.models.DetailsMovieDto
+import com.ibra.dev.moviedbktapp.details.domain.models.DetailsMovieModel
 
 @Composable
 fun DetailsMovieView(
-    movie: DetailsMovieDto,
+    movie: DetailsMovieModel,
+    isFavoriteMovie: Boolean,
     onBackClick: () -> Unit,
-    onSaveFavoriteMovie: (DetailsMovieDto) -> Unit
+    onSaveFavoriteMovie: (DetailsMovieModel) -> Unit
 ) {
     Scaffold(
         topBar = {
             MyTopBar(
                 title = "Detalle",
                 needBackNavigation = true,
-                actionIcon = Icons.Filled.Favorite,
+                actionIcon = if (isFavoriteMovie) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                 onBackPressClick = onBackClick,
                 actionClick = {
                     onSaveFavoriteMovie(movie)
@@ -96,7 +96,8 @@ fun DetailsMovieView(
 @Preview(showBackground = true, heightDp = 500, widthDp = 300)
 @Composable
 private fun DetailsMovieScreenPreview() {
-    val movie = DetailsMovieDto(
+    val movie = DetailsMovieModel(
+        id = 1,
         title = "movie test",
         releaseDate = "dd/mm/YYYY",
         genres = listOf("Adventure", "Comedian"),
@@ -107,6 +108,7 @@ private fun DetailsMovieScreenPreview() {
         language = listOf("en", "es"),
         backdropPoster = "https://image.tmdb.org/t/p/w800/4OgaftFNqtE1UvfDDb2Eov7A5Rz.jpg",
         poster = "https://image.tmdb.org/t/p/w500/4OgaftFNqtE1UvfDDb2Eov7A5Rz.jpg",
+        productionCompanyNames = listOf("warner")
     )
-    DetailsMovieView(movie = movie, onBackClick = {}, onSaveFavoriteMovie = {})
+    DetailsMovieView(movie = movie, isFavoriteMovie = false ,onBackClick = {}, onSaveFavoriteMovie = {})
 }

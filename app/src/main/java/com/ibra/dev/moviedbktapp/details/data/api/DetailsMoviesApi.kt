@@ -1,6 +1,6 @@
 package com.ibra.dev.moviedbktapp.details.data.api
 
-import com.ibra.dev.moviedbktapp.details.data.entities.response.DetailsMovieResponse
+import com.ibra.dev.moviedbktapp.details.data.entities.DetailsMovieResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

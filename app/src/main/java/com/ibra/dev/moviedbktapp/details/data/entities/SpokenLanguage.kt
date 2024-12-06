@@ -1,4 +1,4 @@
-package com.ibra.dev.moviedbktapp.details.data.entities.response
+package com.ibra.dev.moviedbktapp.details.data.entities
 
 
 import com.google.gson.annotations.SerializedName
