@@ -1,5 +1,6 @@
 package com.ibra.dev.moviedbktapp.framework.di
 
+import com.ibra.dev.moviedbktapp.details.di.detailsModule
 import com.ibra.dev.moviedbktapp.framework.database.localStorageModule
 import com.ibra.dev.moviedbktapp.framework.remote.networkModule
 import com.ibra.dev.moviedbktapp.home.di.homeModule
@@ -10,5 +11,6 @@ val coreModule = module {
         networkModule,
         localStorageModule,
         homeModule,
+        detailsModule,
     )
 }
