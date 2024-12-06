@@ -1,6 +1,6 @@
 package com.ibra.dev.moviedbktapp.commons.utils
 
-inline fun <reified T : Number> T?.orAlternative(alternative: T = 0 as T): T = when {
+inline fun <reified T : Number> T?.orAlternative(alternative: T): T = when {
     this == null -> alternative
     this is Double -> 0.0 as T
     this is Float -> 0f as T

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.ibra.dev.moviedbktapp.commons.presentation.theme.MovieDbKtAppTheme
+import com.ibra.dev.moviedbktapp.details.presentation.view.DetailsMovieScreen
 import com.ibra.dev.moviedbktapp.home.presentation.view.HomeScreen
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MovieDbKtAppTheme {
-                HomeScreen()
+                DetailsMovieScreen(1241982)
             }
         }
     }

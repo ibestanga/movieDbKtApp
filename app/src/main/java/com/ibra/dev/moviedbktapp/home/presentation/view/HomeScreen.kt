@@ -85,16 +85,7 @@ fun MovieItem(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AsyncImage(
-                model = "https://image.tmdb.org/t/p/w500${movie.poster}",
-                contentDescription = movie.name,
-                placeholder = painterResource(R.drawable.ic_place_holder),
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .fillMaxWidth(0.4f)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
+
 
             Spacer(modifier = Modifier.width(16.dp))
 
@@ -102,6 +93,17 @@ fun MovieItem(
                 modifier = Modifier.fillMaxHeight(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                AsyncImage(
+                    model = "https://image.tmdb.org/t/p/w500${movie.poster}",
+                    contentDescription = movie.name,
+                    placeholder = painterResource(R.drawable.ic_place_holder),
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .fillMaxWidth(0.4f)
+                        .clip(RoundedCornerShape(8.dp)),
+                    contentScale = ContentScale.Crop
+                )
+
                 Text(
                     text = movie.name,
                     style = MaterialTheme.typography.titleMedium,

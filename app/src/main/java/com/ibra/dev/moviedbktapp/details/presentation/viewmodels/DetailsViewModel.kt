@@ -1,5 +1,6 @@
 package com.ibra.dev.moviedbktapp.details.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.ibra.dev.moviedbktapp.commons.utils.launchWithIO
 import com.ibra.dev.moviedbktapp.details.presentation.states.DetailsMovieActions
@@ -19,8 +20,10 @@ class DetailsViewModel(
 
     fun getDetailsMovie(movieId: Int) {
         launchWithIO {
+            _detailsMovieEvents.value = DetailsMovieActions.Loading
             getDetailsUseCase.invoke(movieId)
                 .catch { e ->
+                    Log.e("DetailsViewModel", "error: ", e)
                     _detailsMovieEvents.value =
                         DetailsMovieActions.Error(errorMsg = e.message.orEmpty())
                 }
