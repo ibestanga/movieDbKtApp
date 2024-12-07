@@ -24,6 +24,7 @@ import coil.compose.AsyncImage
 import com.ibra.dev.moviedbktapp.R
 import com.ibra.dev.moviedbktapp.commons.presentation.component.MyTopBar
 import com.ibra.dev.moviedbktapp.commons.presentation.theme.padding_12dp
+import com.ibra.dev.moviedbktapp.commons.presentation.theme.padding_16dp
 import com.ibra.dev.moviedbktapp.commons.presentation.theme.padding_4dp
 import com.ibra.dev.moviedbktapp.commons.presentation.theme.padding_8dp
 import com.ibra.dev.moviedbktapp.details.domain.models.DetailsMovieModel
@@ -52,6 +53,7 @@ fun DetailsMovieView(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
+                .padding(start = padding_12dp, end =padding_12dp)
         ) {
             AsyncImage(
                 model = movie.poster,
@@ -64,7 +66,7 @@ fun DetailsMovieView(
                     .clip(RoundedCornerShape(padding_8dp)),
                 contentScale = ContentScale.FillBounds
             )
-
+            Spacer(Modifier.height(padding_16dp))
             Text(
                 movie.title,
                 style = MaterialTheme.typography.titleMedium
@@ -76,10 +78,15 @@ fun DetailsMovieView(
             )
             Spacer(Modifier.height(padding_12dp))
             Text(
-                movie.tagLine,
+                "Language - ${movie.language.joinToString(", ")}",
                 style = MaterialTheme.typography.bodySmall
             )
             Spacer(Modifier.height(padding_12dp))
+            Text(
+                movie.tagLine,
+                style = MaterialTheme.typography.bodySmall
+            )
+            Spacer(Modifier.height(padding_4dp))
             Text(
                 "Overview",
                 style = MaterialTheme.typography.titleSmall
