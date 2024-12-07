@@ -3,6 +3,8 @@ package com.ibra.dev.moviedbktapp.home.presentation.view
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
@@ -21,22 +23,21 @@ fun HomeScreen(navController: NavHostController) {
 
     val movies: LazyPagingItems<MovieDto> =
         viewModel.pagingMoviesStateFlow.collectAsLazyPagingItems()
+    val isLoading by viewModel.isLoading.collectAsState()
 
     LaunchedEffect(null) {
         viewModel.getPopularMovies()
     }
-    
+
     HandlerPageStates(
         movies = movies,
+        isLoading = isLoading,
         showLoading = {
             ShowLoading(Modifier.fillMaxSize())
         },
         showErrorState = {
-            ShowResultMessage(modifier = Modifier.fillMaxSize(),"Something wrong ...") { }
+            ShowResultMessage(modifier = Modifier.fillMaxSize(), "Something wrong ...") { }
         },
-        showEmptyList = {
-            ShowResultMessage(modifier = Modifier.fillMaxSize(),"Not elements found") { }
-        }
     ) {
         MoviesListLayout(movies) { id ->
             navController.navigate(MovieDetailDestination(id))
@@ -47,19 +48,14 @@ fun HomeScreen(navController: NavHostController) {
 @Composable
 fun HandlerPageStates(
     movies: LazyPagingItems<MovieDto>,
+    isLoading: Boolean,
     showLoading: @Composable () -> Unit,
     showErrorState: @Composable () -> Unit,
-    showEmptyList: @Composable () -> Unit,
     showCitiesList: @Composable () -> Unit,
 ) {
-    val loadingState: Boolean =
-        movies.loadState.refresh is LoadState.Loading && movies.itemCount == 0
-    val emptyState: Boolean =
-        movies.loadState.refresh is LoadState.NotLoading && movies.itemCount == 0
     val errorState: Boolean = movies.loadState.hasError
     when {
-        loadingState -> showLoading()
-        emptyState -> showEmptyList()
+        isLoading -> showLoading()
         errorState -> showErrorState()
         else -> showCitiesList()
     }

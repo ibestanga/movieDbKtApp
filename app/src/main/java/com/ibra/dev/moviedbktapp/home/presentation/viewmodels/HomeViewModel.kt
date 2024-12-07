@@ -19,17 +19,23 @@ class HomeViewModel(
     private val _pagingMoviesStateFlow = MutableStateFlow(PagingData.empty<MovieDto>())
     val pagingMoviesStateFlow: StateFlow<PagingData<MovieDto>> = _pagingMoviesStateFlow
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
+
     fun getPopularMovies() {
+        _isLoading.value = true
         launchWithIO {
             getPopularMovies.invoke()
                 .cachedIn(viewModelScope)
                 .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.Lazily,
-                initialValue = PagingData.empty()
-            ).collect {
-                _pagingMoviesStateFlow.value = it
-            }
+                    scope = viewModelScope,
+                    started = SharingStarted.Lazily,
+                    initialValue = PagingData.empty()
+                ).collect {
+                    _isLoading.value = false
+                    _pagingMoviesStateFlow.value = it
+                }
         }
     }
 }
