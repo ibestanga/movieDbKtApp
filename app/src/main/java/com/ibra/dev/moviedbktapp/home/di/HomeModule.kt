@@ -4,8 +4,10 @@ import com.ibra.dev.moviedbktapp.framework.database.AppDatabase
 import com.ibra.dev.moviedbktapp.home.data.api.HomeApi
 import com.ibra.dev.moviedbktapp.home.data.repositories.HomeRepositoryImpl
 import com.ibra.dev.moviedbktapp.home.domain.repositories.HomeRepository
+import com.ibra.dev.moviedbktapp.home.domain.usecase.GetFavoritesMoviesImpl
 import com.ibra.dev.moviedbktapp.home.domain.usecase.GetPopularMoviesImpl
 import com.ibra.dev.moviedbktapp.home.domain.usecase.MapMovieEntityToDomainModelImpl
+import com.ibra.dev.moviedbktapp.home.presentation.usecases.GetFavoritesMovies
 import com.ibra.dev.moviedbktapp.home.presentation.usecases.GetPopularMovies
 import com.ibra.dev.moviedbktapp.home.presentation.usecases.MapMovieEntityToDomainModel
 import com.ibra.dev.moviedbktapp.home.presentation.viewmodels.HomeViewModel
@@ -28,14 +30,17 @@ private val domainModule = module {
     single<MapMovieEntityToDomainModel> {
         MapMovieEntityToDomainModelImpl()
     }
+    single<GetFavoritesMovies> {
+        GetFavoritesMoviesImpl(get(), get())
+    }
     single<GetPopularMovies> {
         GetPopularMoviesImpl(get(), get())
     }
 }
 
 private val presentationModule = module {
-    single {
-        HomeViewModel(get())
+    factory {
+        HomeViewModel(get(), get())
     }
 }
 

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,6 +28,7 @@ fun ShowLoading(modifier: Modifier) {
 fun ShowResultMessage(
     modifier: Modifier,
     msg: String,
+    showButton: Boolean = false,
     onRetry: () -> Unit
 ) {
     Column(
@@ -35,10 +37,15 @@ fun ShowResultMessage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = msg)
-        Button(
-            onClick = onRetry
-        ) {
-            Text("Retry")
+        if (showButton) {
+            Button(
+                onClick = onRetry
+            ) {
+                Text(
+                    "Retry",
+                    style = MaterialTheme.typography.titleLarge
+                )
+            }
         }
     }
 }
@@ -46,5 +53,5 @@ fun ShowResultMessage(
 @Preview(showBackground = true)
 @Composable
 private fun ShowResultMessagePreview() {
-    ShowResultMessage(Modifier.fillMaxSize(),"ocurrio un error") { }
+    ShowResultMessage(Modifier.fillMaxSize(), "ocurrio un error") { }
 }
