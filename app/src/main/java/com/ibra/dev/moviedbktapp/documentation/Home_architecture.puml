@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package presentation {
+class HomeScreen
+class HomeViewmodel
+interface GetPopularMoviesUseCase
+}
+
+package domain {
+class GetPopularMoviesUseCaseImpl
+interface HomeRepository
+
+}
+
+package data {
+class HomeRepositoryImpl
+interface HomeRemoteDataSource
+class HomeRemoteDataSourceImpl
+interface HomeLocalDataSource
+class HomeLocalDataSourceImpl
+}
+
+HomeScreen *-- HomeViewmodel
+HomeViewmodel o-- GetPopularMoviesUseCase
+GetPopularMoviesUseCaseImpl o-- HomeRepository
+HomeRepositoryImpl *-- HomeRemoteDataSource
+HomeRepositoryImpl *-- HomeLocalDataSource
+
+HomeRepositoryImpl <|-- HomeRepository
+HomeRemoteDataSourceImpl <|-- HomeRemoteDataSource
+HomeLocalDataSourceImpl <|-- HomeLocalDataSource
+GetPopularMoviesUseCaseImpl <|-- GetPopularMoviesUseCase
+@enduml
+
+

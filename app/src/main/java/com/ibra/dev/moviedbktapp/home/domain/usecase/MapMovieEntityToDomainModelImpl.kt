@@ -4,9 +4,9 @@ import com.ibra.dev.moviedbktapp.commons.utils.orAlternative
 import com.ibra.dev.moviedbktapp.details.domain.models.DetailsMovieModel
 import com.ibra.dev.moviedbktapp.home.data.entities.MovieEntity
 import com.ibra.dev.moviedbktapp.home.domain.models.MovieDto
-import com.ibra.dev.moviedbktapp.home.presentation.usecases.MapMovieEntityToDomainModel
+import com.ibra.dev.moviedbktapp.home.presentation.usecases.MapMovieEntityToDomainModelUseCase
 
-class MapMovieEntityToDomainModelImpl : MapMovieEntityToDomainModel {
+class MapMovieEntityToDomainModelImpl : MapMovieEntityToDomainModelUseCase {
 
     override fun invoke(movieEntity: MovieEntity): MovieDto = MovieDto(
         id = movieEntity.id.orAlternative(),

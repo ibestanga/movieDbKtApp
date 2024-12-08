@@ -4,15 +4,15 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.ibra.dev.moviedbktapp.home.domain.models.MovieDto
 import com.ibra.dev.moviedbktapp.home.domain.repositories.HomeRepository
-import com.ibra.dev.moviedbktapp.home.presentation.usecases.GetPopularMovies
-import com.ibra.dev.moviedbktapp.home.presentation.usecases.MapMovieEntityToDomainModel
+import com.ibra.dev.moviedbktapp.home.presentation.usecases.GetPopularMoviesUseCase
+import com.ibra.dev.moviedbktapp.home.presentation.usecases.MapMovieEntityToDomainModelUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class GetPopularMoviesImpl(
+class GetPopularMoviesUseCaseImpl(
     private val repository: HomeRepository,
-    private val mapEntityToDto: MapMovieEntityToDomainModel
-) : GetPopularMovies {
+    private val mapEntityToDto: MapMovieEntityToDomainModelUseCase
+) : GetPopularMoviesUseCase {
     override suspend fun invoke(): Flow<PagingData<MovieDto>> {
         return repository.getPopularMovies().map { movies ->
             movies.map { entity ->
