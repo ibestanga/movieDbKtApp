@@ -3,7 +3,6 @@ package com.ibra.dev.moviedbktapp.details.domain.usecase
 import com.ibra.dev.moviedbktapp.commons.utils.orAlternative
 import com.ibra.dev.moviedbktapp.details.data.entities.DetailsMovieResponse
 import com.ibra.dev.moviedbktapp.details.domain.models.DetailsMovieModel
-import com.ibra.dev.moviedbktapp.details.presentation.usecase.MapDetailsEntityToDto
 
 class MapDetailsEntityToDtoImpl : MapDetailsEntityToDto {
     companion object {

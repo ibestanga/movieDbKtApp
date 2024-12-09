@@ -11,7 +11,7 @@ import com.ibra.dev.moviedbktapp.details.domain.usecase.SaveMovieLikeFavoriteUse
 import com.ibra.dev.moviedbktapp.details.presentation.usecase.DeleteMovieFromFavorites
 import com.ibra.dev.moviedbktapp.details.presentation.usecase.GetDetailsUseCase
 import com.ibra.dev.moviedbktapp.details.presentation.usecase.IsFavoriteMovieUseCase
-import com.ibra.dev.moviedbktapp.details.presentation.usecase.MapDetailsEntityToDto
+import com.ibra.dev.moviedbktapp.details.domain.usecase.MapDetailsEntityToDto
 import com.ibra.dev.moviedbktapp.details.presentation.usecase.SaveMovieLikeFavoriteUseCase
 import com.ibra.dev.moviedbktapp.details.presentation.viewmodels.DetailsViewModel
 import com.ibra.dev.moviedbktapp.framework.database.AppDatabase

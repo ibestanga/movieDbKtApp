@@ -5,10 +5,14 @@ package presentation {
 class HomeScreen
 class HomeViewmodel
 interface GetPopularMoviesUseCase
+interface GetFavoritesMoviesUseCase
 }
 
 package domain {
+class GetFavoritesMoviesUseCaseImpl
 class GetPopularMoviesUseCaseImpl
+class MapMovieEntityToDomainModelUseCaseImpl
+interface MapMovieEntityToDomainModelUseCase
 interface HomeRepository
 
 }
@@ -23,14 +27,20 @@ class HomeLocalDataSourceImpl
 
 HomeScreen *-- HomeViewmodel
 HomeViewmodel o-- GetPopularMoviesUseCase
+HomeViewmodel o-- GetFavoritesMoviesUseCase
 GetPopularMoviesUseCaseImpl o-- HomeRepository
+GetFavoritesMoviesUseCaseImpl *-- MapMovieEntityToDomainModelUseCase
+GetFavoritesMoviesUseCaseImpl o-- HomeRepository
+GetPopularMoviesUseCaseImpl *-- MapMovieEntityToDomainModelUseCase
+
 HomeRepositoryImpl *-- HomeRemoteDataSource
 HomeRepositoryImpl *-- HomeLocalDataSource
 
 HomeRepositoryImpl <|-- HomeRepository
 HomeRemoteDataSourceImpl <|-- HomeRemoteDataSource
 HomeLocalDataSourceImpl <|-- HomeLocalDataSource
+
 GetPopularMoviesUseCaseImpl <|-- GetPopularMoviesUseCase
+GetFavoritesMoviesUseCaseImpl <|-- GetFavoritesMoviesUseCase
+MapMovieEntityToDomainModelUseCaseImpl <|-- MapMovieEntityToDomainModelUseCase
 @enduml
-
-

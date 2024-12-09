@@ -4,12 +4,12 @@ import com.ibra.dev.moviedbktapp.framework.database.AppDatabase
 import com.ibra.dev.moviedbktapp.home.data.api.HomeApi
 import com.ibra.dev.moviedbktapp.home.data.repositories.HomeRepositoryImpl
 import com.ibra.dev.moviedbktapp.home.domain.repositories.HomeRepository
-import com.ibra.dev.moviedbktapp.home.domain.usecase.GetFavoritesMoviesImpl
+import com.ibra.dev.moviedbktapp.home.domain.usecase.GetFavoritesMoviesUseCaseImpl
 import com.ibra.dev.moviedbktapp.home.domain.usecase.GetPopularMoviesUseCaseImpl
-import com.ibra.dev.moviedbktapp.home.domain.usecase.MapMovieEntityToDomainModelImpl
+import com.ibra.dev.moviedbktapp.home.domain.usecase.MapMovieEntityToDomainModelUseCaseImpl
 import com.ibra.dev.moviedbktapp.home.presentation.usecases.GetFavoritesMoviesUseCase
 import com.ibra.dev.moviedbktapp.home.presentation.usecases.GetPopularMoviesUseCase
-import com.ibra.dev.moviedbktapp.home.presentation.usecases.MapMovieEntityToDomainModelUseCase
+import com.ibra.dev.moviedbktapp.home.domain.usecase.MapMovieEntityToDomainModelUseCase
 import com.ibra.dev.moviedbktapp.home.presentation.viewmodels.HomeViewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -28,10 +28,10 @@ private val dataModule = module {
 
 private val domainModule = module {
     single<MapMovieEntityToDomainModelUseCase> {
-        MapMovieEntityToDomainModelImpl()
+        MapMovieEntityToDomainModelUseCaseImpl()
     }
     single<GetFavoritesMoviesUseCase> {
-        GetFavoritesMoviesImpl(get(), get())
+        GetFavoritesMoviesUseCaseImpl(get(), get())
     }
     single<GetPopularMoviesUseCase> {
         GetPopularMoviesUseCaseImpl(get(), get())

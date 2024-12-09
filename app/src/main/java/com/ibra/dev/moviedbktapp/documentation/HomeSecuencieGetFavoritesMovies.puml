@@ -1,0 +1,42 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor user
+
+box "Presentation" #LightBlue
+participant Ui
+participant Viewmodel
+end box
+
+box "Domain" #LightGray
+participant MapMovieEntityToDomainModelUseCase
+participant GetFavoritesMoviesUseCase
+end box
+
+box "data" #LightGreen
+participant HomeRepository
+participant LocalDataSource
+end box
+
+database SqlDataBase
+
+user -> Ui: scroll favorite page
+Ui -> Viewmodel : getPopularMovies()
+Viewmodel -> GetFavoritesMoviesUseCase : invoke()
+GetFavoritesMoviesUseCase -> HomeRepository : getPopularMovies()
+HomeRepository -> LocalDataSource: getPopularMovies()
+LocalDataSource -> SqlDataBase: Query
+SqlDataBase --> LocalDataSource: list<MovieEntity>
+LocalDataSource --> HomeRepository: List<MovieEntity>
+HomeRepository --> GetFavoritesMoviesUseCase: List<MovieEntity>
+GetFavoritesMoviesUseCase -> MapMovieEntityToDomainModelUseCase : mapToDto()
+MapMovieEntityToDomainModelUseCase --> GetFavoritesMoviesUseCase : MovieDto
+GetFavoritesMoviesUseCase --> Viewmodel: List<MovieDto>
+Viewmodel -> Ui: List<MovieDto>
+
+alt#Gold #LightBlue Successful case
+   Ui -> user : show movies list
+else #Pink Empty case or erro case
+  Ui -> user : show feedback message
+end
+@enduml

@@ -44,11 +44,18 @@ This mobile application is designed to showcase the most popular movies using Th
 ## Architecture Diagrams
 
 ### System Architecture Diagram
+**Home architecture**
 ![home_architecture.png](home_architecture.png)
 
+**Details architecture**
+![details_architecture.png](details_architecture.png)
+
 ### Data Flow Diagram
-**get popular movies**
+**Get popular movies**
 ![get_popular_movies_flow.png](get_popular_movies_flow.png)
+
+**Get favorites movies**
+![get_favorite_movies_flow.png](get_favorite_movies_flow.png)
 
 ### Component Diagram
 ![diagram_component.png](diagram_component.png)

@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package presentation {
+class DetailsMovieScreen
+class DetailsViewModel
+
+interface GetDetailsUseCase
+interface DeleteMovieFromFavorites
+interface IsFavoriteMovieUseCase
+interface SaveMovieLikeFavoriteUseCase
+}
+
+package domain {
+class GetDetailsUseCaseImpl
+class DeleteMovieFromFavoritesImpl
+class IsFavoriteMovieUseCaseImpl
+class SaveMovieLikeFavoriteUseCaseImpl
+
+interface DetailsMovieRepository
+}
+
+package data {
+class DetailsMovieRepositoryImpl
+
+interface HomeRemoteDataSource
+interface HomeLocalDataSource
+
+class HomeRemoteDataSourceImpl
+class HomeLocalDataSourceImpl
+}
+
+DetailsMovieScreen *-- DetailsViewModel
+
+DetailsViewModel o-- GetDetailsUseCase
+DetailsViewModel o-- DeleteMovieFromFavorites
+DetailsViewModel o-- IsFavoriteMovieUseCase
+DetailsViewModel o-- SaveMovieLikeFavoriteUseCase
+
+GetDetailsUseCaseImpl <|-- GetDetailsUseCase
+DeleteMovieFromFavoritesImpl <|-- DeleteMovieFromFavorites
+IsFavoriteMovieUseCaseImpl <|-- IsFavoriteMovieUseCase
+SaveMovieLikeFavoriteUseCaseImpl <|-- SaveMovieLikeFavoriteUseCase
+
+GetDetailsUseCaseImpl o-- DetailsMovieRepository
+DeleteMovieFromFavoritesImpl o-- DetailsMovieRepository
+IsFavoriteMovieUseCaseImpl o-- DetailsMovieRepository
+SaveMovieLikeFavoriteUseCaseImpl o-- DetailsMovieRepository
+
+DetailsMovieRepositoryImpl <|-- DetailsMovieRepository
+
+DetailsMovieRepositoryImpl *-- HomeRemoteDataSource
+DetailsMovieRepositoryImpl *-- HomeLocalDataSource
+
+HomeRemoteDataSourceImpl <|--  HomeRemoteDataSource
+HomeLocalDataSourceImpl <|-- HomeLocalDataSource
+@enduml
